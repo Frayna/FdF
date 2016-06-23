@@ -6,7 +6,7 @@
 #    By: pgourran <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/30 21:57:41 by pgourran          #+#    #+#              #
-#    Updated: 2016/06/03 18:14:07 by pgourran         ###   ########.fr        #
+#    Updated: 2016/06/03 13:04:40 by pgourran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ ARFLAG	= rcs
 CC		= gcc
 CFLAG	= -Wall -Werror -Wextra
 OBJ		= $(SRC:.c=.o)
-SRC		= get_next_line.c\
-		  ft_atoi.c\
+SRC		= ft_atoi.c\
 		  ft_bzero.c\
 		  ft_isalnum.c\
 		  ft_isalpha.c\

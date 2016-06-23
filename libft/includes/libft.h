@@ -6,18 +6,17 @@
 /*   By: pgourran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 21:57:30 by pgourran          #+#    #+#             */
-/*   Updated: 2016/06/03 18:25:50 by pgourran         ###   ########.fr       */
+/*   Updated: 2016/06/03 14:17:28 by pgourran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define BUFF_SIZE 32
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
-#include <fcntl.h>
+
 typedef struct		s_list
 {
 	void			*content;
@@ -25,14 +24,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct		s_gnl
-{
-	int				ref;
-	char			*str;
-	struct s_gnl	*next;
-}					t_gnl;
-
-int					get_next_line(int const fd, char **line);
 int					ft_isalpha(int c);
 int					ft_isalnum(int c);
 int					ft_isdigit(int c);
