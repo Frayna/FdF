@@ -6,7 +6,7 @@
 /*   By: pgourran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 19:23:58 by pgourran          #+#    #+#             */
-/*   Updated: 2016/06/23 19:28:09 by pgourran         ###   ########.fr       */
+/*   Updated: 2016/06/24 17:58:33 by pgourran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,34 @@ int main()
 }
 */
 
+char	*next_diff(char* str)
+{
+	char	*ptr;
+	char	c;
+
+	c = *str;
+	ptr = str;
+	while(*ptr == c)
+		ptr++;
+	return(ptr);
+}
+
+int		ft_unicount(char *str, char c)
+{
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = str;
+	while ((ptr = ft_strchr(ptr, c)))
+	{
+		while(*ptr == c)
+			ptr++;
+		i++;
+	}
+	return(i);
+}
+
 int		*int_line(char *str)
 {
 	int		*line;
@@ -195,14 +223,7 @@ int		*int_line(char *str)
 	int		i;
 
 	i = 2;
-	size_line = 1;
-	ptr = str;
-	while ((ptr = ft_strchr(ptr, ' ')))
-	{
-		while(!(ft_isdigit(*ptr)))
-			ptr++;
-		size_line++;
-	}
+	size_line = ft_unicount(str, ' ') + 1;
 	if (!(line = malloc(sizeof(int) * (size_line + 1))))
 		return(NULL);
 	line[0] = size_line;
@@ -210,15 +231,33 @@ int		*int_line(char *str)
 	ptr = str;
 	while ((ptr = ft_strchr(ptr, ' ')) && i <= size_line)
 	{
-		ptr++;
+		ptr = next_diff(ptr);
 		line[i] = ft_atoi(ptr);
 		i++;
 	}
 	return(line);
 }
 
+void	ft_putinttab(int	**line, int	size)
+{
+	int x;
+	int y;
 
-
+	x = 0;
+	y = -1;
+	while(++y < size)
+	{
+		ft_putnbr(line[y][0]);
+		ft_putchar(' ');
+		while(++x <= line[y][0])
+		{
+			ft_putnbr(line[y][x]);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+		x = 0;
+	}
+}
 
 int main()
 {
@@ -228,12 +267,10 @@ int main()
 	char	*seg;
 	char	**tab;
 	int		**line;
-	int		i;
 	int		y;
 
 	y = -1;
-	i = 0;
-	fd = open("maps/42.fdf",O_RDONLY);
+	fd = open("maps/elem-col.fdf",O_RDONLY);
 	while (( 1 == get_next_line(fd, &tmp)))
 	{
 			if (ft_strchr(tmp, ':'))
@@ -242,15 +279,13 @@ int main()
 			full = ft_strjoin_free(full, seg, 2);
 	}
 	tab = ft_strsplit(full, ':');
-//	ft_puttab(tab);
-	if(!(line = malloc(sizeof(int *) * (ft_tablen(tab) + 1))))
+	ft_puttab(tab);
+	ft_putstr("\n\n");
+	if(!(line = (int **)malloc(sizeof(int *) * (ft_tablen(tab) + 1))))
 		return(-1);
 	while(++y < ft_tablen(tab))
 		line[y] = int_line(tab[y]);
-	line[y + 1] = NULL;
-//	ft_putnbr(line[0][0]);
-	while(++i <= line[0][0])
-		ft_putnbr(line[i][0]);
+	ft_putinttab(line, ft_tablen(tab));
 	return(0);
 	
 	

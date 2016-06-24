@@ -1,0 +1,2 @@
+gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -I libft/includes libft/libft.a *.c
+./a.out
